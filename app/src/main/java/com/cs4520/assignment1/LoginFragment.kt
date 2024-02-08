@@ -19,7 +19,7 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.main_activity, container, false)
+        val view = inflater.inflate(R.layout.login_fragment, container, false)
         usernameEditText = view.findViewById(R.id.username)
         passwordEditText = view.findViewById(R.id.password)
         loginButton = view.findViewById(R.id.loginButton)
@@ -32,7 +32,7 @@ class LoginFragment : Fragment() {
                 usernameEditText.text.clear();
                 passwordEditText.text.clear();
 
-                //findNavController().navigate(R.id.action_loginFragment_to_productListFragment)
+                findNavController().navigate(R.id.action_loginFragment_to_productListFragment)
             } else {
                 Toast.makeText(activity, "Incorrect username or password", Toast.LENGTH_SHORT).show()
             }

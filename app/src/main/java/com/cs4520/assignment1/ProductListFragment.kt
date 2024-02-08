@@ -6,11 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 /**
  * A simple [Fragment] subclass.
  * Use the [ProductListFragment.newInstance] factory method to
@@ -24,18 +19,14 @@ class ProductListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        products = convertDataset()
+       // products = convertDataset()
         // Setup RecyclerView here
     }
-    private fun convertDataset(): List<Product> {
+     /* private fun convertDataset(): List<Product> {
         return listOf(
             listOf("Treadmill", "Equipment", null, 32),
             listOf("Banana", "Food", "2024-02-29", 29),
@@ -73,10 +64,10 @@ class ProductListFragment : Fragment() {
             listOf("Raspberry", "Food", "2024-05-02", 24),
             listOf("Gymnastic Rings", "Equipment", null, 50),
             listOf("Blackberry", "Food", "2024-05-08", 29)
-        ).map {
-            Product(it[0] as String, it[1] as String, it[2] as String?, it[3] as Int)
-        }
-    }
+        )//.map {
+        //    Product(it[0] as String, it[1] as String, it[2] as String?, it[3] as Int)
+        //}
+    } */
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -8,15 +8,19 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.cs4520.assignment1.LoginFragment"
-        android:label="LoginFragment">
+        android:label="LoginFragment"
+        tools:layout="@layout/login_fragment">
         <action
             android:id="@+id/action_loginFragment_to_productListFragment"
-            app:destination="@id/productListFragment" />
+            app:destination="@id/productListFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
 
     <fragment
         android:id="@+id/productListFragment"
         android:name="com.cs4520.assignment1.ProductListFragment"
-        android:label="ProductListFragment">
+        android:label="ProductListFragment"
+        tools:layout="@layout/fragment_product_list">
     </fragment>
 </navigation>
