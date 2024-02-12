@@ -3,40 +3,36 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.fragment.app.Fragment
+import com.cs4520.assignment1.databinding.LoginFragmentBinding
 
 class LoginFragment : Fragment() {
-    private lateinit var usernameEditText: EditText
-    private lateinit var passwordEditText: EditText
-    private lateinit var loginButton: Button
+    private lateinit var binding: LoginFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.login_fragment, container, false)
-        usernameEditText = view.findViewById(R.id.username)
-        passwordEditText = view.findViewById(R.id.password)
-        loginButton = view.findViewById(R.id.loginButton)
+    ): View {
+        binding = LoginFragmentBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        loginButton.setOnClickListener {
-            val username = usernameEditText.text.toString()
-            val password = passwordEditText.text.toString()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.loginButton.setOnClickListener{
+            val username = binding.username.text.toString()
+            val password = binding.password.text.toString()
 
             if (username == "admin" && password == "admin") {
-                usernameEditText.text.clear();
-                passwordEditText.text.clear();
+                binding.username.text.clear()
+                binding.password.text.clear()
 
                 findNavController().navigate(R.id.action_loginFragment_to_productListFragment)
             } else {
                 Toast.makeText(activity, "Incorrect username or password", Toast.LENGTH_SHORT).show()
             }
         }
-        return view
     }
 }

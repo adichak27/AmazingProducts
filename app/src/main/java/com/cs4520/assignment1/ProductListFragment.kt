@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.cs4520.assignment1.databinding.FragmentProductListBinding
 
 /**
  * A simple [Fragment] subclass.
@@ -17,13 +18,13 @@ class ProductListFragment : Fragment() {
 
     private lateinit var products: List<Product>
     private lateinit var adapter: ProductAdapter
-    private lateinit var recyclerView: RecyclerView
+    private lateinit var binding: FragmentProductListBinding
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_product_list, container, false)
-        recyclerView = view.findViewById(R.id.recyclerView)
-        return view
+        binding = FragmentProductListBinding.inflate(inflater, container, false)
+        return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -36,7 +37,7 @@ class ProductListFragment : Fragment() {
         }
         // Setup RecyclerView here
         adapter = ProductAdapter(products);
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+        binding.recyclerView.adapter = adapter
     }
 }

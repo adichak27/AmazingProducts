@@ -3,50 +3,52 @@ package com.cs4520.assignment1
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.cs4520.assignment1.databinding.ItemProductBinding
 
 class ProductAdapter(private val products: List<Product>) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
-    class ProductViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val imageView: ImageView = view.findViewById(R.id.imageViewProduct)
-        val nameTextView: TextView = view.findViewById(R.id.textViewName)
-        val expiryDateTextView: TextView = view.findViewById(R.id.textViewExpiryDate)
-        val priceTextView: TextView = view.findViewById(R.id.textViewPrice)
-        val background: ConstraintLayout = view as ConstraintLayout
-    }
+
+    class ProductViewHolder(val binding: ItemProductBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_product, parent, false)
-        return ProductViewHolder(view)
+        val binding = ItemProductBinding.inflate(LayoutInflater.from(parent.context),
+            parent, false)
+        return ProductViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        when (val product = products[position]) {
-            is Product.Food -> {
-                holder.nameTextView.text = product.name
-                holder.priceTextView.text = "${product.price}"
-                // set or hide the expirary date
-                if (product.expiryDate.isNullOrEmpty()) {
-                    holder.expiryDateTextView.visibility = View.GONE
-                } else {
-                    holder.expiryDateTextView.visibility = View.VISIBLE
-                    holder.expiryDateTextView.text = product.expiryDate
+        holder.binding.apply {
+            when (val product = products[position]) {
+                is Product.Food -> {
+                    textViewName.text = product.name
+                    textViewPrice.text = "$${product.price}"
+                    // set or hide the expirary date
+                    if (product.expiryDate.isNullOrEmpty()) {
+                        textViewExpiryDate.visibility = View.GONE
+                    } else {
+                        textViewExpiryDate.visibility = View.VISIBLE
+                        textViewExpiryDate.text = product.expiryDate
+                    }
+                    // set background color to light_yellow from the colors.xml
+                    itemProduct.setBackgroundResource(R.color.light_yellow)
+                    imageViewProduct.setImageResource(R.drawable.food)
                 }
-                // set background color to light_yellow from the colors.xml
-                holder.background.setBackgroundResource(R.color.light_yellow)
-                holder.imageView.setImageResource(R.drawable.tomatoes)
+                is Product.Equipment -> {
+                    textViewName.text = product.name
+                    textViewPrice.text = "$${product.price}"
+                    textViewExpiryDate.visibility = View.GONE
+                    // set background color to light_red from the colors.xml
+                    itemProduct.setBackgroundResource(R.color.light_red)
+                    imageViewProduct.setImageResource(R.drawable.equipment)
+                }
             }
-            is Product.Equipment -> {
-                holder.nameTextView.text = product.name
-                holder.priceTextView.text = "${product.price}"
-                holder.expiryDateTextView.visibility = View.GONE
-                // set background color to light_red from the colors.xml
-                holder.background.setBackgroundResource(R.color.light_red)
-                holder.imageView.setImageResource(R.drawable.equipment)
+            imageViewProduct.post {
+                val width = imageViewProduct.width
+                imageViewProduct.layoutParams.height = width
             }
         }
+
+
     }
     override fun getItemCount(): Int {
         return products.size
